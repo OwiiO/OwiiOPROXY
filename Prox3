@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MHTML Proxy</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        #output { margin-top: 20px; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>MHTML Proxy</h1>
+    <input type="text" id="urlInput" placeholder="Enter URL to fetch" />
+    <button id="fetchButton">Fetch MHTML</button>
+    <div id="output"></div>
+
+    <script>
+        document.getElementById('fetchButton').onclick = function() {
+            const url = document.getElementById('urlInput').value;
+            fetch(`https://your-proxy-server.com/fetch?url=${encodeURIComponent(url)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById('output').textContent = data;
+                })
+                .catch(error => {
+                    document.getElementById('output').innerText = 'Error fetching URL: ' + error;
+                });
+        };
+    </script>
+</body>
+</html>
